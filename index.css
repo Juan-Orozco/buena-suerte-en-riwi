@@ -1,0 +1,381 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #1a1a1a;
+    background-color: #ecd9b0;
+    background-image:
+        radial-gradient(rgba(0, 0, 0, 0.16) 1.2px, transparent 1.2px);
+    background-size: 14px 14px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.shook {
+    animation: sacudidaBrutal 0.06s steps(5, end) infinite;
+}
+
+@keyframes sacudidaBrutal {
+    0%   { transform: translate(0, 0)        rotate(0deg); }
+    25%  { transform: translate(-10px, 8px)  rotate(-0.6deg); }
+    50%  { transform: translate(9px, -7px)   rotate(0.5deg); }
+    75%  { transform: translate(-7px, 5px)   rotate(-0.4deg); }
+    100% { transform: translate(5px, 8px)    rotate(0.3deg); }
+}
+
+.game {
+    width: 100%;
+    max-width: 780px;
+    background: #fff7e1;
+    border: 4px solid #1a1a1a;
+    padding: 30px 28px 34px;
+    box-shadow: 10px 10px 0 #1a1a1a;
+    position: relative;
+}
+
+h1 {
+    font-family: "Impact", "Arial Black", "Helvetica Neue", sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #1a1a1a;
+}
+
+.instructions {
+    text-align: center;
+    font-style: italic;
+    color: #4a4a4a;
+    margin-bottom: 22px;
+}
+
+#arena {
+    position: relative;
+    height: 380px;
+    overflow: hidden;
+    border: 3px solid #1a1a1a;
+    background: #fffceb;
+}
+
+#arena::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+    background-size: 22px 22px;
+    pointer-events: none;
+}
+
+#wizard {
+    position: absolute;
+    left: 36px;
+    bottom: 24px;
+    font-size: 72px;
+    line-height: 1;
+    transform: rotate(-3deg);
+    z-index: 2;
+}
+
+#score {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 6px 14px;
+    background: #c92a2a;
+    color: #fff7e1;
+    font-family: "Impact", "Arial Black", sans-serif;
+    font-size: 17px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: 2px solid #1a1a1a;
+    transform: rotate(-4deg);
+    z-index: 3;
+}
+
+button {
+    display: block;
+    margin: 22px auto 8px;
+    padding: 14px 32px;
+    border: 3px solid #1a1a1a;
+    background: #c92a2a;
+    color: #fff7e1;
+    font-family: "Impact", "Arial Black", sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 6px 6px 0 #1a1a1a;
+    transition: transform 0.08s, box-shadow 0.08s, background-color 0.1s;
+}
+
+button:hover:not(:disabled) {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 #1a1a1a;
+    background-color: #d63232;
+}
+
+button:active:not(:disabled) {
+    transform: translate(4px, 4px);
+    box-shadow: 2px 2px 0 #1a1a1a;
+}
+
+button:disabled {
+    background-color: #999;
+    color: #e3e3e3;
+    cursor: not-allowed;
+    box-shadow: 3px 3px 0 #555;
+    transform: translate(3px, 3px);
+}
+
+#message {
+    text-align: center;
+    font-style: italic;
+    color: #444;
+    min-height: 1.4em;
+}
+
+.cat {
+    position: absolute;
+    left: 30px;
+    bottom: 40px;
+    font-size: 72px;
+    pointer-events: none;
+    transform-origin: center bottom;
+    z-index: 4;
+    animation: zoomGato 1.4s cubic-bezier(0.45, 0, 0.7, 1) forwards;
+}
+
+@keyframes zoomGato {
+    0%   { transform: scale(0.3) rotate(0deg); opacity: 1; }
+    70%  { transform: scale(3) rotate(360deg); opacity: 1; }
+    100% { transform: scale(12) rotate(720deg); opacity: 0; }
+}
+
+.vomito {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 180px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 25px #84cc16);
+    animation: vomitoAnim 1s ease-out forwards;
+    z-index: 5;
+}
+
+@keyframes vomitoAnim {
+    0%   { transform: translate(-50%, -50%) scale(0)    rotate(0deg);   opacity: 0; }
+    15%  { transform: translate(-50%, -50%) scale(1.7)  rotate(-20deg); opacity: 1; }
+    35%  { transform: translate(-50%, -50%) scale(0.85) rotate(8deg);   opacity: 1; }
+    55%  { transform: translate(-50%, -50%) scale(1.35) rotate(-6deg);  opacity: 1; }
+    75%  { transform: translate(-50%, -50%) scale(1.05) rotate(3deg);   opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1.6)  rotate(-2deg);  opacity: 0; }
+}
+
+.puke {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    pointer-events: none;
+    background: var(--puke-color, #84cc16);
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    animation: pukeFly 0.8s ease-out forwards;
+}
+
+@keyframes pukeFly {
+    0%   { transform: translate(-50%, -50%) translate(0, 0) scale(1);   opacity: 1; }
+    100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0.15); opacity: 0; }
+}
+
+.aviso {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    text-align: center;
+    z-index: 999;
+    pointer-events: none;
+    animation: luzParpadeante 5s steps(50, end) forwards;
+}
+
+.aviso::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 18px solid #c92a2a;
+    pointer-events: none;
+    animation: anilloFlash 0.09s steps(2, end) infinite;
+}
+
+@keyframes anilloFlash {
+    0%, 100% { border-color: #c92a2a; }
+    50%      { border-color: #ffe600; }
+}
+
+.aviso::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.32) 0,
+        rgba(0, 0, 0, 0.32) 3px,
+        transparent 3px,
+        transparent 6px
+    );
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    animation: scanJitter 0.1s steps(5, end) infinite;
+}
+
+@keyframes scanJitter {
+    0%   { background-position: 0 0; }
+    25%  { background-position: -4px 0; }
+    50%  { background-position: 3px 0; }
+    75%  { background-position: -2px 0; }
+    100% { background-position: 0 0; }
+}
+
+.aviso-texto {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    font-family: "Impact", "Arial Black", "Helvetica Neue", sans-serif;
+    font-size: clamp(2.5rem, 13vw, 9rem);
+    line-height: 1;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #fff7e1;
+    text-shadow:
+        -5px 0 #00d4ff,
+        5px 0 #ff0066,
+        0 -4px #ffe600,
+        0 6px #1a1a1a;
+    animation: caosTotal 5s steps(50, end) forwards;
+}
+
+@keyframes caosTotal {
+    0%   { transform: translate(0, 0)         rotate(0deg)   scale(1);    color: #c92a2a; }
+    2%   { transform: translate(-18px, 12px) rotate(-6deg)  scale(1.25); color: #fff7e1; }
+    4%   { transform: translate(15px, -10px) rotate(4deg)   scale(0.85); color: #c92a2a; }
+    6%   { transform: translate(-12px, -8px) rotate(-3deg)  scale(1.15); color: #ffe600; }
+    8%   { transform: translate(0, 0)         rotate(0deg)   scale(1.05); color: #1a1a1a; }
+    10%  { transform: translate(20px, 8px)    rotate(5deg)   scale(1.3);  color: #fff7e1; }
+    12%  { transform: translate(-15px, -12px) rotate(-4deg) scale(0.95); color: #c92a2a; }
+    14%  { transform: translate(8px, 14px)    rotate(2deg)   scale(1.1);  color: #fff7e1; }
+    16%  { transform: translate(-10px, 6px)   rotate(-2deg)  scale(1);    color: #00d4ff; }
+    18%  { transform: translate(14px, -14px)  rotate(6deg)   scale(1.2);  color: #c92a2a; }
+    20%  { transform: translate(-22px, 0)     rotate(-5deg)  scale(1);    color: #fff7e1; }
+    22%  { transform: translate(16px, 18px)   rotate(7deg)   scale(1.4);  color: #ffe600; }
+    24%  { transform: translate(-6px, -18px)  rotate(-3deg)  scale(0.9);  color: #c92a2a; }
+    26%  { transform: translate(0, 0)         rotate(0deg)   scale(1.1);  color: #fff7e1; }
+    28%  { transform: translate(20px, -10px)  rotate(4deg)   scale(1.25); color: #1a1a1a; }
+    30%  { transform: translate(-18px, 14px)  rotate(-7deg)  scale(1);    color: #c92a2a; }
+    32%  { transform: translate(12px, 16px)   rotate(5deg)   scale(1.15); color: #ffe600; }
+    34%  { transform: translate(-24px, -8px)  rotate(-6deg)  scale(0.85); color: #fff7e1; }
+    36%  { transform: translate(8px, 22px)    rotate(3deg)   scale(1.3);  color: #c92a2a; }
+    38%  { transform: translate(-14px, -16px) rotate(-4deg)  scale(1);    color: #fff7e1; }
+    40%  { transform: translate(18px, 4px)    rotate(6deg)   scale(1.2);  color: #1a1a1a; }
+    42%  { transform: translate(-20px, 10px)  rotate(-5deg)  scale(0.95); color: #c92a2a; }
+    44%  { transform: translate(10px, -22px)  rotate(3deg)   scale(1.15); color: #fff7e1; }
+    46%  { transform: translate(-8px, 18px)   rotate(-2deg)  scale(1);    color: #ffe600; }
+    48%  { transform: translate(22px, -6px)   rotate(8deg)   scale(1.3);  color: #c92a2a; }
+    50%  { transform: translate(-16px, -14px) rotate(-6deg)  scale(1.05); color: #00d4ff; }
+    52%  { transform: translate(14px, 12px)   rotate(4deg)   scale(1.2);  color: #c92a2a; }
+    54%  { transform: translate(-12px, -10px) rotate(-3deg)  scale(0.9);  color: #fff7e1; }
+    56%  { transform: translate(6px, 20px)    rotate(2deg)   scale(1.1);  color: #ffe600; }
+    58%  { transform: translate(-22px, 0)     rotate(-7deg)  scale(1.25); color: #c92a2a; }
+    60%  { transform: translate(20px, -16px)  rotate(6deg)   scale(1);    color: #fff7e1; }
+    62%  { transform: translate(-10px, 14px)  rotate(-2deg)  scale(1.15); color: #1a1a1a; }
+    64%  { transform: translate(16px, 10px)   rotate(4deg)   scale(1.3);  color: #c92a2a; }
+    66%  { transform: translate(-18px, -12px) rotate(-5deg)  scale(0.95); color: #fff7e1; }
+    68%  { transform: translate(8px, 18px)    rotate(3deg)   scale(1.1);  color: #ffe600; }
+    70%  { transform: translate(-14px, 22px)  rotate(-6deg)  scale(1.2);  color: #c92a2a; }
+    72%  { transform: translate(22px, -8px)   rotate(7deg)   scale(1.05); color: #fff7e1; }
+    74%  { transform: translate(-20px, 16px)  rotate(-4deg)  scale(1);    color: #00d4ff; }
+    76%  { transform: translate(16px, -22px)  rotate(5deg)   scale(1.3);  color: #c92a2a; }
+    78%  { transform: translate(-10px, 6px)   rotate(-3deg)  scale(0.9);  color: #fff7e1; }
+    80%  { transform: translate(20px, 14px)   rotate(6deg)   scale(1.2);  color: #ffe600; }
+    82%  { transform: translate(-22px, -18px) rotate(-7deg)  scale(1);    color: #c92a2a; }
+    84%  { transform: translate(14px, 22px)   rotate(4deg)   scale(1.15); color: #fff7e1; }
+    86%  { transform: translate(-16px, 0)     rotate(-5deg)  scale(1.25); color: #1a1a1a; }
+    88%  { transform: translate(8px, -22px)   rotate(3deg)   scale(1.05); color: #c92a2a; }
+    90%  { transform: translate(-14px, 18px)  rotate(-4deg)  scale(1);    color: #ffe600; }
+    92%  { transform: translate(22px, 14px)   rotate(8deg)   scale(1.3);  color: #fff7e1; }
+    94%  { transform: translate(-20px, -10px) rotate(-6deg)  scale(1.1);  color: #c92a2a; }
+    96%  { transform: translate(18px, -16px)  rotate(5deg)   scale(1.4);  color: #fff7e1; }
+    98%  { transform: translate(-12px, 8px)   rotate(-3deg)  scale(1.2);  color: #c92a2a; opacity: 1; }
+    100% { transform: translate(0, 0)         rotate(0deg)   scale(1);    color: #c92a2a; opacity: 0; }
+}
+
+@keyframes luzParpadeante {
+    0%   { background-color: rgba(0, 0, 0, 0.97); }
+    2%   { background-color: rgba(255, 255, 255, 1); }
+    4%   { background-color: rgba(0, 0, 0, 0.97); }
+    6%   { background-color: rgba(201, 42, 42, 1); }
+    8%   { background-color: rgba(0, 0, 0, 0.97); }
+    10%  { background-color: rgba(255, 255, 255, 1); }
+    12%  { background-color: rgba(0, 0, 0, 0.97); }
+    14%  { background-color: rgba(255, 215, 0, 0.97); }
+    16%  { background-color: rgba(0, 0, 0, 0.97); }
+    18%  { background-color: rgba(255, 255, 255, 1); }
+    20%  { background-color: rgba(0, 0, 0, 0.97); }
+    22%  { background-color: rgba(201, 42, 42, 1); }
+    24%  { background-color: rgba(0, 0, 0, 0.97); }
+    26%  { background-color: rgba(255, 255, 255, 1); }
+    28%  { background-color: rgba(0, 0, 0, 0.97); }
+    30%  { background-color: rgba(201, 42, 42, 1); }
+    32%  { background-color: rgba(0, 0, 0, 0.97); }
+    34%  { background-color: rgba(0, 220, 255, 1); }
+    36%  { background-color: rgba(0, 0, 0, 0.97); }
+    38%  { background-color: rgba(255, 255, 255, 1); }
+    40%  { background-color: rgba(0, 0, 0, 0.97); }
+    42%  { background-color: rgba(255, 215, 0, 0.97); }
+    44%  { background-color: rgba(0, 0, 0, 0.97); }
+    46%  { background-color: rgba(255, 255, 255, 1); }
+    48%  { background-color: rgba(0, 0, 0, 0.97); }
+    50%  { background-color: rgba(201, 42, 42, 1); }
+    52%  { background-color: rgba(0, 0, 0, 0.97); }
+    54%  { background-color: rgba(255, 255, 255, 1); }
+    56%  { background-color: rgba(0, 0, 0, 0.97); }
+    58%  { background-color: rgba(201, 42, 42, 1); }
+    60%  { background-color: rgba(0, 0, 0, 0.97); }
+    62%  { background-color: rgba(255, 215, 0, 0.97); }
+    64%  { background-color: rgba(0, 0, 0, 0.97); }
+    66%  { background-color: rgba(255, 255, 255, 1); }
+    68%  { background-color: rgba(0, 0, 0, 0.97); }
+    70%  { background-color: rgba(201, 42, 42, 1); }
+    72%  { background-color: rgba(0, 0, 0, 0.97); }
+    74%  { background-color: rgba(255, 255, 255, 1); }
+    76%  { background-color: rgba(0, 0, 0, 0.97); }
+    78%  { background-color: rgba(255, 215, 0, 0.97); }
+    80%  { background-color: rgba(0, 0, 0, 0.97); }
+    82%  { background-color: rgba(255, 255, 255, 1); }
+    84%  { background-color: rgba(0, 0, 0, 0.97); }
+    86%  { background-color: rgba(201, 42, 42, 1); }
+    88%  { background-color: rgba(0, 0, 0, 0.97); }
+    90%  { background-color: rgba(255, 255, 255, 1); }
+    92%  { background-color: rgba(201, 42, 42, 1); }
+    94%  { background-color: rgba(0, 0, 0, 0.97); }
+    96%  { background-color: rgba(255, 0, 0, 1); }
+    98%  { background-color: rgba(0, 0, 0, 0.97); opacity: 1; }
+    100% { background-color: rgba(0, 0, 0, 0.97); opacity: 0; }
+}
