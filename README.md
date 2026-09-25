@@ -14,3 +14,6 @@ Este proceso no se trata de ser el mejor desde el comienzo, sino de terminar sie
 Yo ya recorrí este camino. Ahora te toca recorrerlo a ti.
 
 Muchos éxitos. Nos vemos al otro lado. 
+
+
+posdata(No dejes tu cuenta abierta por seguridad)
